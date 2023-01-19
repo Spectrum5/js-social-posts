@@ -38,7 +38,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": null
+            "image": "https://unsplash.it/300/300?image=29"   //da mettere null
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -57,17 +57,41 @@ const posts = [
 ];
 
 const postList = document.getElementById(`container`);
-
+let feed =[];
 
 for(i = 0; i < posts.length; i++){
     let singlePost = posts[i];
     const post = document.getElementById(`post`).content.cloneNode(true);
-    
+
     post.querySelector(`.post-meta__author`).innerHTML = singlePost.author.name;
     post.querySelector(`.post-meta__time`).innerHTML = singlePost.created;
     post.querySelector(`.post__text`).innerHTML = singlePost.content;
     post.querySelector(`.post__image`).innerHTML = `<img src =${singlePost.media}>`
     post.querySelector(`.js-likes-counter`).innerHTML = singlePost.likes;
+    post.querySelector(`.profile-pic`).innerHTML = `<img src = ${singlePost.author.image}>`
 
     postList.append(post);
+ 
+    let  btn = document.getElementById(`likes__cta`);
+    btn.addEventListener(`click`, function(){
+
+     let green =  document.getElementById(`js-like-button`);
+     
+          if( !green.classList.contains(`like-button--liked`)){
+                green.classList.add(`like-button--liked`);
+                singlePost.likes += 1;
+                if(!feed.includes(singlePost.id)){
+                    feed.push(singlePost.id);
+                }
+             }
+             else if( green.classList.contains(`like-button--liked`)){
+            document.getElementById(`js-like-button`).classList.remove(`like-button--liked`);
+            singlePost.likes -=1;
+        }
+
+
+        console.log(singlePost.likes, feed)
+ 
+    })
+  
     }

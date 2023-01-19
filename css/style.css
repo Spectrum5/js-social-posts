@@ -62,7 +62,7 @@ h1 {
     font-size: 0.8rem;
 }
 
-.profile-pic {
+.profile-pic > img {
     border-radius: 50%;
     max-width: 60px;
 }
