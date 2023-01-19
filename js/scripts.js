@@ -56,7 +56,7 @@ const posts = [
     }
 ];
 
-let feed =[];
+let idLike =[];
 const postList = document.getElementById(`container`);
 
 for(i = 0; i < posts.length; i++){
@@ -68,30 +68,28 @@ for(i = 0; i < posts.length; i++){
     post.querySelector(`.post__text`).innerHTML = singlePost.content;
     post.querySelector(`.post__image`).innerHTML = `<img src =${singlePost.media}>`
     let likes = post.querySelector(`.js-likes-counter`);
-    likes.innerHTML = Number(singlePost.likes);
+    likes.innerHTML = singlePost.likes;
     post.querySelector(`.profile-pic`).innerHTML = `<img src = ${singlePost.author.image}>`;
   
     if(singlePost.author.image == null){
         post.querySelector(`.profile-pic`).innerHTML = `LF`;
     }
-     
     let  btn = post.getElementById(`likes__cta`);
-    btn.setAttribute(`data-postid`, singlePost.id);
+    const id = singlePost.id;
     
-    const id = btn.getAttribute(`data-postid`);
     let green = post.querySelector(`.js-like-button`);
     btn.addEventListener(`click`, function(){
-     
-          if( !feed.includes(id)){
+     console.log(id)
+          if( !idLike.includes(id)){
                  green.classList.add("like-button--liked");
                 likes.innerHTML = Number(likes.innerHTML) + 1;
-                    feed.push(id);
-                    console.log(feed)            
+                    idLike.push(id);
+                    console.log(idLike)            
              }
              else {
                 green.classList.remove("like-button--liked");
                 likes.innerHTML=Number(likes.innerHTML)-1;
-                feed.splice(feed.indexOf(id),1);
+                idLike.splice(idLike.indexOf(id),1);
         }   
     })
     postList.append(post);
